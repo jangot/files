@@ -17,6 +17,16 @@ define([
         return result.replace(/ ( )+|\n/g, '');
     }
 
+    function replaceVars(template, params) {
+        var result = template;
+        for (var key in params) {
+            var replaceRegExp = new RegExp('<%= ' + key + ' %>', 'g');
+            result = result.replace(replaceRegExp, params[key]);
+        }
+
+        return result.replace(otherVarsRegExp, '');
+    }
+
     return function(template, params) {
         if (template[0] === '#') {
             template = getTemplateById(template.substr(1));
@@ -27,15 +37,7 @@ define([
 
         params = params || {};
 
-        var result = template;
-        for (var key in params) {
-            var replaceRegExp = new RegExp('<%= ' + key + ' %>', 'g');
-            result = result.replace(replaceRegExp, params[key]);
-        }
-
-        result = result.replace(otherVarsRegExp, '');
-
-        buffer.innerHTML = result;
+        buffer.innerHTML = replaceVars(template, params);
 
         return buffer.firstChild;
     }
