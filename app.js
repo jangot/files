@@ -19,3 +19,4 @@ http.createServer(function (req, res) {
         res.end(data);
     });
 }).listen(8080);
+console.log('listen localhost:8080');

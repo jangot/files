@@ -12,20 +12,19 @@ define([
             return '';
         }
 
-        var result = element.innerHTML;
-
-        return result.replace(/ ( )+|\n/g, '');
+        return element.innerHTML;
     }
 
     function replaceVars(template, params) {
+        template = template.replace(/ ( )+|\n/g, '');
+
         var result = template;
         for (var key in params) {
             var replaceRegExp = new RegExp('<%= ' + key + ' %>', 'g');
             result = result.replace(replaceRegExp, params[key]);
         }
 
-        result = result.replace(otherVarsRegExp, '')
-        return result;
+        return result.replace(otherVarsRegExp, '');
     }
 
     return function(template, params) {
