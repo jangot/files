@@ -1,0 +1,58 @@
+* {
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.content {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+/* MESSAGE
+*/
+.messages {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+.message {
+    color: black;
+    padding: 5px 10px;
+}
+.message_error {
+    border: 1px hotpink solid;
+    background: hotpink;
+}
+.message_info {
+    border: 1px cornflowerblue solid;
+    background: cornflowerblue;
+}
+
+/* LIST */
+.widgetList-content {
+
+}
+
+.widgetList-content-folder {
+    display: inline-block;
+    vertical-align: top;
+    border: 3px silver inset;
+    width: 400px;
+    margin: 0 50px 50px 0;
+    padding: 20px;
+}
+
+/* FOLDER */
+.folder {
+
+}
+
+.folder table {
+    width: 100%;
+}
+
+.folder td,
+.folder th {
+    border: 1px green solid;
+}

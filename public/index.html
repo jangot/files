@@ -3,16 +3,51 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Файлы</title>
+    <link rel="stylesheet" href="/css/index.css"/>
     <script src="/js/lib/require.js" data-main="/js/requirejs"></script>
 </head>
 <body>
+    <div class="messages"></div>
+    <div class="content">
+        <div class="widgetList">
+            <button>Create folder</button>
+            <div class="widgetList-content"></div>
+        </div>
 
-    <div class="widgetList">
-        <button>Create folder</button>
+        <div id="list"></div>
     </div>
 
+    <script type="text/html" id="folderTemplate">
+        <div class="folder">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Date modified</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <input type="file" />
+        </div>
+    </script>
+
+    <!-- TODO remove 'table' after tr compile problem -->
     <script type="text/html" id="fileTemplate">
-        <div>files <strong><%= test %></strong></div>
+        <table>
+            <tbody>
+                <tr>
+                    <td><%= name %></td>
+                    <td><%= size %></td>
+                    <td><%= date %></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </script>
+    <script type="text/html" id="messageTemplate">
+        <div class="message <%= className %>"><%= message %></div>
     </script>
 </body>
 </html>

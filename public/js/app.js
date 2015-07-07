@@ -3,5 +3,6 @@ define([
     'widget/list/widget'
 
 ], function(listWidget) {
-    listWidget('.widgetList');
+    var list = listWidget(document.querySelector('.widgetList'));
+    list.createFolder();
 });

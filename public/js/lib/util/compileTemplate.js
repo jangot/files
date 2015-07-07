@@ -24,7 +24,8 @@ define([
             result = result.replace(replaceRegExp, params[key]);
         }
 
-        return result.replace(otherVarsRegExp, '');
+        result = result.replace(otherVarsRegExp, '')
+        return result;
     }
 
     return function(template, params) {
@@ -37,6 +38,7 @@ define([
 
         params = params || {};
 
+        // TODO fix problem with table nodes
         buffer.innerHTML = replaceVars(template, params);
 
         return buffer.firstChild;

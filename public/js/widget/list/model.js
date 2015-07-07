@@ -1,17 +1,21 @@
 define([
 
-    'lib/util'
+    'lib/util',
 
-], function(util) {
+    'widget/folder/widget'
+
+], function(util, folderWidget) {
 
     function ListModel(element) {
         this.element = element;
     }
 
     ListModel.prototype = {
-        create: function() {
-            var newFolderContainer = util.compileTemplate('#fileTemplate', {test: 'HI'});
-            this.element.appendChild(newFolderContainer);
+        createFolder: function() {
+            var newFolderContainer = util.compileTemplate('<div class="widgetList-content-folder"></div>');
+            this.element.querySelector('.widgetList-content').appendChild(newFolderContainer);
+
+            folderWidget(newFolderContainer);
         }
     };
 
