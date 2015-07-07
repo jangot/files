@@ -2,9 +2,10 @@ define([
 
     'lib/util',
     'class/file',
-    'services/message'
+    'services/message',
+    'services/fileRegistry'
 
-], function(util, File, message) {
+], function(util, File, message, fileRegistry) {
 
     function FolderModel(element) {
         this.element = element;
@@ -24,34 +25,29 @@ define([
 
             this.$$draw();
         },
-        addFiles: function(files) {
-            var filesCount = files.length;
-            util.forEach(files, function(file, i) {
-                var file = new File(files[i]);
-                file.getId(function(id) {
-                    if (this.files[id]) {
-                        message.error(this.files[id].nativeFile.name + ' file has been added.')
-                    } else {
-                        this.files[id] = file;
-                    }
-                    filesCount--;
-                    if (filesCount === 0) {
-                        this.$$draw();
-                    }
-                }.bind(this));
-            }.bind(this));
+        addFile: function(id) {
+            if (this.files[id]) {
+                throw new Error(this.files[id].name + ' - file has been added.');
+            }
+            this.files[id] = fileRegistry[id];
         },
-        $$draw: function() {
+        showLoader: function() {
+            this.element.querySelector('.folder').classList.add('loading');
+        },
+        hideLoader: function() {
+            this.element.querySelector('.folder').classList.remove('loading');
+        },
+        draw: function() {
             var tbody = this.element.querySelector('tbody');
 
             var field = this.sorterField;
             var direction = this.sortDirection;
 
-            var list = util.map(this.files);
+            var list = util.map(this.files, fileToViewData);
             list.sort(function(fileA, fileB) {
-                if (fileA[field] > fileB[field]) {
+                if (fileA.originFile[field] > fileB.originFile[field]) {
                     return 1 * direction;
-                } else if (fileA[field] < fileB[field]) {
+                } else if (fileA.originFile[field] < fileB.originFile[field]) {
                     return -1 * direction;
                 } else {
                     return 0;
@@ -60,12 +56,26 @@ define([
 
             tbody.innerHTML = '';
 
-            list.forEach(function(file) {
-                var fileItem = util.compileTemplate('#fileTemplate', file);
+            list.forEach(function(fileData) {
+                var fileItem = util.compileTemplate('#fileTemplate', fileData);
 
                 // TODO remove 'querySelector' after fix tr compile problem
-                tbody.appendChild(fileItem.querySelector('tr'));
+                var tr = fileItem.querySelector('tr');
+                tbody.appendChild(tr);
             }.bind(this));
+        }
+    };
+
+    function fileToViewData(file, id) {
+        var size = file.size / 1024 / 1024;
+        var d = file.lastModifiedDate;
+
+        return {
+            id: id,
+            originFile: file,
+            name: file.name,
+            size: size.toFixed(2) + 'MiB',
+            date: d.getDate() + ':' + (d.getMonth() + 1) + ':' + d.getFullYear()
         }
     }
 

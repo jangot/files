@@ -15,7 +15,7 @@ define([
     }
 
     function File(nativeFile) {
-        this.$$data = null;
+        this.id = null;
         this.nativeFile = nativeFile;
 
         this.name = nativeFile.name;
@@ -25,12 +25,12 @@ define([
 
     File.prototype = {
         getId: function(cb) {
-            if (this.$$data) {
-                cb(this.$$data);
+            if (this.id) {
+                cb(this.id);
             } else {
                 readData(this.nativeFile, function(data) {
-                    this.$$data = data;
-                    cb(this.$$data);
+                    this.id = data;
+                    cb(this.id);
                 }.bind(this));
             }
         }

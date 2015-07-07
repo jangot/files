@@ -9,6 +9,10 @@
     margin: 0 auto;
 }
 
+button {
+    padding: 5px 10px;
+}
+
 /* MESSAGE
 */
 .messages {
@@ -44,7 +48,20 @@
 
 /* FOLDER */
 .folder {
-
+    position: relative;
+}
+.folder-loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: white;
+    opacity: 0.5;
+    display: none;
+}
+.folder.loading .folder-loader {
+    display: block;
 }
 
 .folder table {
