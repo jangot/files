@@ -18,14 +18,13 @@
 }
 .message {
     color: black;
+    border: 1px black solid;
     padding: 5px 10px;
 }
 .message_error {
-    border: 1px hotpink solid;
     background: hotpink;
 }
 .message_info {
-    border: 1px cornflowerblue solid;
     background: cornflowerblue;
 }
 
