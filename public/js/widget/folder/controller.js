@@ -8,15 +8,19 @@ define([
 ], function(util, getFileId, fileRegistry, message) {
 
     return function(model) {
-        //TODO remove after delegate
         this['input change'] = change;
+
         this['.folder dragover'] = function(e) {
-            e.stopPropagation();
-            e.preventDefault();
+            var id = e.dataTransfer.getData('fileId');
+            console.log(e, id);
+            if (!model.files[id]) {
+                e.preventDefault();
+            }
         };
         this['.folder drop'] = function(e) {
             var id = e.dataTransfer.getData('fileId');
 
+            console.log(id);
             if (id) {
                 try {
                     model.addFile(id);
@@ -28,20 +32,22 @@ define([
             } else {
                 addFiles(e.dataTransfer.files);
             }
-
-            e.stopPropagation();
-            e.preventDefault();
         };
         this['.folder dragstart'] = function(e) {
-            e.dataTransfer.setData('fileId', e.target.getAttribute('file-id'));
-        }
+            var id = e.target.getAttribute('file-id');
+
+            e.dataTransfer.setData('fileId', id);
+            model.removeFile(id);
+        };
 
         function change(e) {
             var input = e.target;
             addFiles(input.files);
 
+            //TODO remove after delegate
             var newInput = document.createElement('input');
             newInput.setAttribute('type', 'file');
+            newInput.setAttribute('multiple', '');
             input.parentNode.insertBefore(newInput, input);
             input.parentNode.removeChild(input);
 

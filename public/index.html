@@ -10,7 +10,7 @@
     <div class="messages"></div>
     <div class="content">
         <div class="widgetList">
-            <button>Create folder</button>
+            <button class="addFolder">Create folder</button>
             <div class="widgetList-content"></div>
         </div>
 
@@ -19,6 +19,7 @@
 
     <script type="text/html" id="folderTemplate">
         <div class="folder">
+            <strong><%= id %></strong>
             <div class="folder-loader"></div>
             <table>
                 <thead>
@@ -30,7 +31,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
-            <input type="file" />
+            <input type="file" multiple />
         </div>
     </script>
 
