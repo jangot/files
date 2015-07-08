@@ -7,7 +7,7 @@ define([
         for (i = 0, len = string.length; i < len; i++) {
             chr   = string.charCodeAt(i);
             hash  = ((hash << 5) - hash) + chr;
-            hash |= 0; // Convert to 32bit integer
+            hash |= 0;
         }
         return 'id' + hash;
     }

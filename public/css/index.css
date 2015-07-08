@@ -77,6 +77,10 @@ button {
     width: 100%;
 }
 
+.folder th {
+    white-space: nowrap;
+}
+
 .folder td,
 .folder th {
     cursor: pointer;
