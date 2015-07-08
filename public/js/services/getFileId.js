@@ -1,12 +1,14 @@
 define([
 
-], function() {
+    'lib/util'
+
+], function(util) {
 
     return function(file, cb) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            //TODO use md5
-            cb(e.target.result);
+            var id = util.hash(e.target.result);
+            cb(id);
         };
         reader.readAsDataURL(file);
     }

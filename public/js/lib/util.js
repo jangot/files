@@ -1,12 +1,14 @@
 define([
 
-    'lib/util/compileTemplate'
+    'lib/util/compileTemplate',
+    'lib/hash'
 
-], function(compileTemplate) {
+], function(compileTemplate, hash) {
 
     return {
         noop: function() {},
         compileTemplate: compileTemplate,
+        hash: hash,
         forEach: function(object, cb) {
             //TODO need refactoring
             if (object.length) {

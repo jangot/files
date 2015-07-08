@@ -70,7 +70,6 @@ define([
             model.showLoader();
             util.forEach(files, function(file) {
                 getFileId(file, function(id) {
-
                     if (!file.type) {
                         message.error(file.name + ' - it is not a file.');
                     } else {
