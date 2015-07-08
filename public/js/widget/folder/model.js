@@ -3,9 +3,11 @@ define([
     'lib/util',
     'class/file',
     'services/message',
-    'services/fileRegistry'
+    'services/fileRegistry',
+    'services/formatDate',
+    'services/formatSize'
 
-], function(util, File, message, fileRegistry) {
+], function(util, File, message, fileRegistry, formatDate, formatSize) {
 
     function FolderModel(element) {
         this.element = element;
@@ -80,18 +82,12 @@ define([
     };
 
     function fileToViewData(file, id) {
-        var d = file.lastModifiedDate;
-        var size = (file.size / 1024 / 1024).toFixed(2);
-        if (size == 0.00) {
-            size = 0.01;
-        }
-
         return {
             id: id,
             nativeFile: file,
             name: file.name,
-            size: size + 'MiB',
-            date: d.getDate() + ':' + (d.getMonth() + 1) + ':' + d.getFullYear()
+            size: formatSize(file.size),
+            date: formatDate(file.lastModifiedDate)
         }
     }
 

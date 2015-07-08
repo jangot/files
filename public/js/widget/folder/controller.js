@@ -3,32 +3,38 @@ define([
     'lib/util',
     'services/getFileId',
     'services/fileRegistry',
-    'services/message'
+    'services/message',
+    'services/transfer'
 
-], function(util, getFileId, fileRegistry, message) {
+], function(util, getFileId, fileRegistry, message, transfer) {
 
     return function(model) {
         this['input change'] = change;
 
         this['.folder dragover'] = function(e) {
-            var id = e.dataTransfer.getData('fileId');
-            console.log(e, id);
-            if (!model.files[id]) {
+            if (transfer.getValue('fileId')) {
                 e.preventDefault();
             }
         };
         this['.folder drop'] = function(e) {
-            var id = e.dataTransfer.getData('fileId');
+            var id = transfer.getValue('fileId');
 
-            console.log(id);
             if (id) {
                 try {
-                    model.addFile(id);
-                    model.draw();
+                    var sourceModel = transfer.getValue('sourceModel');
+                    if (sourceModel !== model) {
+                        model.addFile(id);
+                        model.draw();
+
+                        sourceModel.removeFile(id);
+                        sourceModel.draw();
+                    }
                 } catch (e) {
                     message.error(e.message);
                 }
 
+                transfer.removeValue('fileId');
+                transfer.removeValue('sourceModel');
             } else {
                 addFiles(e.dataTransfer.files);
             }
@@ -36,8 +42,8 @@ define([
         this['.folder dragstart'] = function(e) {
             var id = e.target.getAttribute('file-id');
 
-            e.dataTransfer.setData('fileId', id);
-            model.removeFile(id);
+            transfer.putValue('fileId', id);
+            transfer.putValue('sourceModel', model);
         };
 
         function change(e) {

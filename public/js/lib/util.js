@@ -37,6 +37,14 @@ define([
             });
 
             return result;
+        },
+        zeroField: function(val, numSize) {
+            var outZero = '';
+            var zeroCount = numSize - String(val).length;
+            for (var i = 0; i < zeroCount; i++) {
+                outZero += '0';
+            }
+            return outZero+val;
         }
     }
 
