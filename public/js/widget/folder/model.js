@@ -17,6 +17,7 @@ define([
         this.sorterField = 'name';
         this.sortDirection = 1;
         this.$$dirty = false;
+        this.$$setSortClasses();
     }
 
     FolderModel.prototype = {
@@ -24,6 +25,7 @@ define([
             this.sortDirection = this.sorterField === type ? (this.sortDirection * -1) : 1;
             this.sorterField = type;
             this.$$dirty = true;
+            this.$$setSortClasses();
         },
         addFile: function(id) {
             if (this.files[id]) {
@@ -77,6 +79,19 @@ define([
                 var tr = fileItem.querySelector('tr');
                 tbody.appendChild(tr);
             }.bind(this));
+        },
+        $$setSortClasses: function() {
+            var el = this.element.querySelector('.folder');
+            el.classList.remove('sortBy-name');
+            el.classList.remove('sortBy-lastModifiedDate');
+            el.classList.remove('sortBy-size');
+            el.classList.remove('sortDirection-top');
+            el.classList.remove('sortDirection-bottom');
+
+            el.classList.add('sortBy-' + this.sorterField);
+
+            var direction = this.sortDirection > 0 ? 'top' : 'bottom';
+            el.classList.add('sortDirection-' + direction);
         }
     };
 

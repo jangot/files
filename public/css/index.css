@@ -81,3 +81,22 @@ button {
     border: 1px green solid;
     padding: 3px 5px;
 }
+
+.folder .sortArr {
+    visibility: hidden;
+    display: inline-block;
+}
+
+.folder.sortDirection-bottom .sortArr {
+    transform: rotate(180deg);
+}
+
+.folder.sortBy-name th[sort-by="name"] .sortArr {
+    visibility: visible;
+}
+.folder.sortBy-lastModifiedDate th[sort-by="lastModifiedDate"] .sortArr {
+    visibility: visible;
+}
+.folder.sortBy-size th[sort-by="size"] .sortArr {
+    visibility: visible;
+}
