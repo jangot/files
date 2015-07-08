@@ -75,11 +75,9 @@ button {
     width: 100%;
 }
 
-.folder td {
-    cursor: pointer;
-}
-
 .folder td,
 .folder th {
+    cursor: pointer;
     border: 1px green solid;
+    padding: 3px 5px;
 }

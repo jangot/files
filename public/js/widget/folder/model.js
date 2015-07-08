@@ -21,10 +21,9 @@ define([
 
     FolderModel.prototype = {
         setSorter: function(type) {
-            this.sortDirection = this.sorter === type ? (this.sortDirection * -1) : 1;
-            this.sorter = type;
-
-            this.draw();
+            this.sortDirection = this.sorterField === type ? (this.sortDirection * -1) : 1;
+            this.sorterField = type;
+            this.$$dirty = true;
         },
         addFile: function(id) {
             if (this.files[id]) {
@@ -33,7 +32,7 @@ define([
             if (!fileRegistry[id]) {
                 throw new Error(id + ' does not exist.');
             }
-            this.files[id] = fileRegistry[id];
+            this.files[id] = fileToViewData(fileRegistry[id], id);
             this.$$dirty = true;
         },
         removeFile: function(id) {
@@ -58,7 +57,7 @@ define([
             var field = this.sorterField;
             var direction = this.sortDirection;
 
-            var list = util.map(this.files, fileToViewData);
+            var list = util.map(this.files);
             list.sort(function(fileA, fileB) {
                 if (fileA.nativeFile[field] > fileB.nativeFile[field]) {
                     return 1 * direction;

@@ -10,6 +10,11 @@ define([
 
     return function(model) {
         this['input change'] = change;
+        this['th click'] = function(e) {
+            var sortBy = e.target.getAttribute('sort-by');
+            model.setSorter(sortBy);
+            model.draw();
+        };
 
         this['.folder dragover'] = function(e) {
             if (transfer.getValue('fileId')) {
