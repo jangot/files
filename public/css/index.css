@@ -80,6 +80,7 @@ button {
     cursor: pointer;
     border: 1px green solid;
     padding: 3px 5px;
+    -webkit-user-select: none;
 }
 
 .folder .sortArr {
