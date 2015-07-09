@@ -6,8 +6,8 @@ define([
 
 ], function(widget, Model, Controller) {
 
-    return function (selector) {
-        return widget(selector, Model, Controller);
+    return function (element) {
+        return widget(element, Model, Controller);
     }
 
 });
