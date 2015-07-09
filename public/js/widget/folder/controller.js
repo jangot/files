@@ -55,13 +55,13 @@ define([
             var input = e.target;
             addFiles(input.files);
 
-            //TODO remove after delegate
             var newInput = document.createElement('input');
             newInput.setAttribute('type', 'file');
             newInput.setAttribute('multiple', '');
             input.parentNode.insertBefore(newInput, input);
             input.parentNode.removeChild(input);
 
+            //TODO remove after realization delegate
             newInput.addEventListener('change', change);
         }
 
