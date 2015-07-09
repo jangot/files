@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <title>Файлы</title>
     <link rel="stylesheet" href="/css/index.css"/>
-    <script src="/js/lib/require.js" data-main="/js/requirejs"></script>
+    <script src="/js/lib/require.js"></script>
+    <script>
+        requirejs.config({
+            baseUrl: '/js/',
+            deps: ['app']
+        });
+    </script>
 </head>
 <body>
     <div class="messages"></div>
@@ -31,7 +37,7 @@
                         Size <div class="sortArr">&uarr;</div>
                     </th>
                     <th sort-by="lastModifiedDate">
-                        Date modified <div class="sortArr">&uarr;</div>
+                        Last update <div class="sortArr">&uarr;</div>
                     </th>
                 </tr>
                 </thead>
@@ -45,10 +51,10 @@
     <script type="text/html" id="fileTemplate">
         <table>
             <tbody>
-                <tr draggable="true" file-id="<%= id %>">
-                    <td><%= name %></td>
-                    <td><%= size %></td>
-                    <td><%= date %></td>
+                <tr draggable="true" title="<%= name %>" file-id="<%= id %>">
+                    <td class="file-name"><div><%= name %></div></td>
+                    <td class="file-size"><%= size %></td>
+                    <td class="file-date"><%= date %></td>
                 </tr>
             </tbody>
         </table>
