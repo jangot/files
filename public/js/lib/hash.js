@@ -3,7 +3,7 @@ define([
 ], function() {
     return function(string) {
         var hash = 0, i, chr, len;
-        if (string.length == 0) {
+        if (string.length === 0) {
             return hash;
         }
         for (i = 0, len = string.length; i < len; i++) {
