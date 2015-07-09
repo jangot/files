@@ -9,6 +9,6 @@ define([
             hash  = ((hash << 5) - hash) + chr;
             hash |= 0;
         }
-        return 'id' + hash;
+        return hash;
     }
 });
