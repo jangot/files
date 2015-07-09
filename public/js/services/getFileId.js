@@ -7,7 +7,7 @@ define([
     return function(file, cb) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            var id = util.hash(e.target.result);
+            var id = 'id' + util.hash(e.target.result);
             cb(id);
         };
         reader.readAsDataURL(file);
